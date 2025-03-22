@@ -6,6 +6,7 @@ import 'pages/meeting_provider.dart';
 import 'pages/schedule_meeting_page.dart';
 
 void main() {
+
   runApp(GestionSyndicApp());
 }
 
