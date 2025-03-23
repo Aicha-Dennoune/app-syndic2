@@ -10,25 +10,25 @@ class MeetingListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Liste des réunions"),
+        title: const Text("Liste des réunions"),
         backgroundColor: Colors.blueAccent,
       ),
       body: Consumer<MeetingProvider>(
         builder: (context, provider, child) {
           if (provider.meetings.isEmpty) {
-            return Center(child: Text("Aucune réunion enregistrée."));
+            return const Center(child: Text("Aucune réunion enregistrée."));
           }
           return ListView.builder(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             itemCount: provider.meetings.length,
             itemBuilder: (context, index) {
               final meeting = provider.meetings[index];
               return Card(
                 elevation: 3,
-                margin: EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 child: ListTile(
-                  title: Text(meeting.date, style: TextStyle(fontWeight: FontWeight.bold)),
+                  title: Text(meeting.date, style: const TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -41,7 +41,7 @@ class MeetingListPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.edit, color: Colors.blueAccent),
+                        icon: const Icon(Icons.edit, color: Colors.blueAccent),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -52,7 +52,7 @@ class MeetingListPage extends StatelessWidget {
                         },
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete, color: Colors.redAccent),
+                        icon: const Icon(Icons.delete, color: Colors.redAccent),
                         onPressed: () {
                           provider.deleteMeeting(index);
                         },

@@ -59,7 +59,7 @@ class MeetingProvider extends ChangeNotifier {
         _agenda.isEmpty ||
         _location.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Veuillez remplir tous les champs"),
           backgroundColor: Colors.red,
         ),
@@ -69,8 +69,7 @@ class MeetingProvider extends ChangeNotifier {
 
     // Ajouter la réunion à la liste
     final meeting = Meeting(
-      date:
-          "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}",
+      date: "${_selectedDate!.year}-${_selectedDate!.month.toString().padLeft(2, '0')}-${_selectedDate!.day.toString().padLeft(2, '0')}",
       time: _selectedTime!.format(context),
       agenda: _agenda,
       location: _location,
@@ -79,9 +78,9 @@ class MeetingProvider extends ChangeNotifier {
     notifyListeners();
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Veuillez attendre..."),
-        backgroundColor: const Color.fromARGB(255, 43, 47, 43),
+      const SnackBar(
+        content: Text("Réunion enregistrée avec succès."),
+        backgroundColor: Colors.green,
       ),
     );
 
@@ -89,15 +88,16 @@ class MeetingProvider extends ChangeNotifier {
   }
 
   /// Réinitialiser les champs après l'enregistrement
-  void clearFields() {
-    _selectedDate = null;
-    _selectedTime = null;
-    _agenda = "";
-    _location = "";
-    agendaController.clear();
-    locationController.clear();
-    notifyListeners();
-  }
+void clearFields() {
+  _selectedDate = null;
+  _selectedTime = null;
+  _agenda = "";
+  _location = "";
+  agendaController.clear();
+  locationController.clear();
+  notifyListeners();
+}
+
 
   /// Supprimer une réunion spécifique
   void deleteMeeting(int index) {
@@ -107,16 +107,27 @@ class MeetingProvider extends ChangeNotifier {
 
   void updateMeeting(int index, BuildContext context) {
   if (_selectedDate == null || _selectedTime == null || _agenda.isEmpty || _location.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Veuillez remplir tous les champs"),
+        backgroundColor: Colors.red,
+      ),
+    );
     return;
   }
 
   _meetings[index] = Meeting(
-    date: "${_selectedDate!.year}-${_selectedDate!.month}-${_selectedDate!.day}",
+    date: "${_selectedDate!.year}-${_selectedDate!.month.toString().padLeft(2, '0')}-${_selectedDate!.day.toString().padLeft(2, '0')}",
     time: _selectedTime!.format(context),
     agenda: _agenda,
     location: _location,
   );
+
   notifyListeners();
+
+  // Réinitialiser les champs après l'édition
+  clearFields();
 }
+
 
 }
