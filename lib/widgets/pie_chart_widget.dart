@@ -9,8 +9,8 @@ class PieChartWidget extends StatelessWidget {
       child: PieChart(
         PieChartData(
           sections: [
-            PieChartSectionData(value: 40, color: Colors.red, title: 'Impayés'),
-            PieChartSectionData(value: 60, color: Colors.green, title: 'Payé'),
+            PieChartSectionData(value: 40, color: const Color.fromARGB(255, 87, 172, 215), title: 'Impayés'),
+            PieChartSectionData(value: 60, color: const Color.fromARGB(255, 75, 160, 173), title: 'Payé'),
           ],
         ),
       ),

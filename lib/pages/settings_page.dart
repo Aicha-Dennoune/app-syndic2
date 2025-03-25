@@ -13,12 +13,12 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(255, 64, 66, 69),
         elevation: 0, // Supprimer l'ombre
         title: Text(
           'Paramètres',
           style: TextStyle(
-            color: Colors.black, // Texte noir
+            color: const Color.fromARGB(255, 255, 255, 255), // Texte noir
             fontWeight: FontWeight.bold,
           ),
         ),

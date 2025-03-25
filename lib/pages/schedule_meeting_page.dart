@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'meeting_provider.dart';
+import '../widgets/NotificationBell.dart'; 
+import 'notifications_page.dart';
 import '../widgets/user_avatar.dart';
 import 'UserProfilePage.dart';
 import 'MeetingListPage.dart';
@@ -14,22 +16,36 @@ class ScheduleMeetingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text("Planifier une réunion", style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.blueAccent,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: GestureDetector(
+        backgroundColor: const Color.fromARGB(255, 64, 66, 69),
+        elevation: 0,
+        title: Row(
+          children: [
+            Text(
+              "Planifier une réunion",
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            Spacer(), // Ajoute un espace flexible entre le titre et les icônes
+            SizedBox(width: 20), // Ajoute un petit espace entre les icônes
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationsPage()), // Redirige vers NotificationsPage
+                );
+              },
+              child: NotificationBell(), // Icône de notification avec 3 notifications
+            ),
+            GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => UserProfilePage()),
                 );
               },
-              child: UserAvatar(),
+              child: UserAvatar(), // Utilisation de textSize de 18
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -51,7 +67,7 @@ class ScheduleMeetingPage extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     IconButton(
-                      icon: Icon(Icons.date_range, color: Colors.blueAccent),
+                      icon: Icon(Icons.date_range, color: const Color.fromARGB(255, 75, 160, 173)),
                       onPressed: () async {
                         DateTime? pickedDate = await showDatePicker(
                           context: context,
@@ -83,7 +99,7 @@ class ScheduleMeetingPage extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     IconButton(
-                      icon: Icon(Icons.access_time, color: Colors.blueAccent),
+                      icon: Icon(Icons.access_time, color: const Color.fromARGB(255, 75, 160, 173)),
                       onPressed: () async {
                         TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
@@ -131,7 +147,7 @@ class ScheduleMeetingPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
+                      backgroundColor: const Color.fromARGB(255, 75, 160, 173),
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     ),
@@ -142,7 +158,7 @@ class ScheduleMeetingPage extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text("Réunion programmée avec succès"),
-                          backgroundColor: Colors.green,
+                          backgroundColor: const Color.fromARGB(255, 2, 180, 8),
                         ),
                       );
                     },
@@ -156,7 +172,7 @@ class ScheduleMeetingPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: const Color.fromARGB(255, 75, 160, 173),
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     ),
@@ -192,7 +208,7 @@ class ScheduleMeetingPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(icon, color: Colors.blueAccent),
+                Icon(icon, color: const Color.fromARGB(255, 75, 160, 173)),
                 SizedBox(width: 10),
                 Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ],

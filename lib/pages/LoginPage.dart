@@ -66,13 +66,13 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  // Bouton de connexion
+                  // Bouton de connexion avec une largeur réduite
                   SizedBox(
-                    width: double.infinity,
+                    width: 170, // Largeur réduite
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black,
-                        padding: const EdgeInsets.symmetric(vertical: 18),
+                        padding: const EdgeInsets.symmetric(vertical: 12), // Hauteur inchangée
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -86,7 +86,7 @@ class LoginPage extends StatelessWidget {
                       },
                       child: const Text(
                         "Se Connecter",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 17, color: Colors.white),
                       ),
                     ),
                   ),

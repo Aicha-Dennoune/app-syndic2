@@ -55,13 +55,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Profil du Syndic",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ),
+  title: Text(
+    "Profil du Syndic",
+    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+  ),
+  centerTitle: true,
+  backgroundColor: const Color.fromARGB(255, 64, 66, 69),
+  iconTheme: IconThemeData(color: Colors.white), 
+),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -71,7 +72,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               children: [
                 CircleAvatar(
                   radius: 80,
-                  backgroundColor: Colors.grey[300],
+                  backgroundColor: const Color.fromARGB(255, 198, 198, 198),
                   backgroundImage:
                       _profileImage != null ? FileImage(_profileImage!) : null,
                   child: _profileImage == null
@@ -84,7 +85,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   },
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: const Color.fromARGB(255, 75, 160, 173),
                     child: Icon(Icons.camera_alt, color: Colors.white),
                   ),
                 ),
@@ -111,11 +112,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
             SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: _navigateToEditProfile,
-              icon: Icon(Icons.edit, color: Colors.white),
+              icon: Icon(Icons.edit, color: const Color.fromARGB(255, 255, 255, 255)),
               label: Text("Modifier le Profil"),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                foregroundColor: Colors.white,
+                backgroundColor: const Color.fromARGB(255, 75, 160, 173),
+                foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -134,7 +135,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       padding: EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Icon(icon, color: Colors.blueAccent, size: 26),
+          Icon(icon, color:const Color.fromARGB(255, 75, 160, 173), size: 26),
           SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -154,7 +155,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         return Wrap(
           children: [
             ListTile(
-              leading: Icon(Icons.photo_library, color: Colors.blueAccent),
+              leading: Icon(Icons.photo_library, color: const Color.fromARGB(255, 145, 147, 150)),
               title: Text("Choisir depuis la galerie"),
               onTap: () {
                 _pickImage(ImageSource.gallery);
@@ -162,7 +163,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.camera_alt, color: Colors.blueAccent),
+              leading: Icon(Icons.camera_alt, color: const Color.fromARGB(255, 145, 147, 150)),
               title: Text("Prendre une photo"),
               onTap: () {
                 _pickImage(ImageSource.camera);

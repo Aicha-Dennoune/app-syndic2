@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/user_avatar.dart'; // Import du UserAvatar
 import 'UserProfilePage.dart'; // Import de la page de profil utilisateur
-
+import '../widgets/NotificationBell.dart'; 
+import 'notifications_page.dart';
 class MessagesPage extends StatefulWidget {
   @override
   _MessagesPageState createState() => _MessagesPageState();
@@ -20,12 +21,25 @@ class _MessagesPageState extends State<MessagesPage> {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(255, 64, 66, 69),
         elevation: 0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Messages", style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              "Messages",
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            Spacer(), // Ajoute un espace flexible entre le titre et les icônes
+            SizedBox(width: 20), // Ajoute un petit espace entre les icônes
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationsPage()), // Redirige vers NotificationsPage
+                );
+              },
+              child: NotificationBell(), // Icône de notification avec 3 notifications
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -33,7 +47,7 @@ class _MessagesPageState extends State<MessagesPage> {
                   MaterialPageRoute(builder: (context) => UserProfilePage()),
                 );
               },
-              child: UserAvatar(textSize: 18), // Utilisation de textSize de 18
+              child: UserAvatar(), // Utilisation de textSize de 18
             ),
           ],
         ),
@@ -47,7 +61,7 @@ class _MessagesPageState extends State<MessagesPage> {
             elevation: 5,
             child: ListTile(
               leading: CircleAvatar(
-                backgroundColor: Colors.green[600],
+                backgroundColor: const Color.fromARGB(255, 75, 160, 173),
                 child: Icon(Icons.person, color: Colors.white),
               ),
               title: Text(
@@ -104,7 +118,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        backgroundColor: const Color.fromARGB(255, 75, 160, 173),
         title: Text(widget.ownerName, style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         elevation: 0,
@@ -155,7 +169,7 @@ class _ChatPageState extends State<ChatPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Icon(Icons.check, color: Colors.green, size: 16),
+                                Icon(Icons.check, color: const Color.fromARGB(255, 75, 160, 173), size: 16),
                               ],
                             ),
                           ],
@@ -199,7 +213,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 SizedBox(width: 8),
                 CircleAvatar(
-                  backgroundColor: Colors.green[700],
+                  backgroundColor: const Color.fromARGB(255, 75, 160, 173),
                   child: IconButton(
                     icon: Icon(Icons.send, color: Colors.white),
                     onPressed: () => sendMessage(_messageController.text),

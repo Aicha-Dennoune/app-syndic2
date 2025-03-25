@@ -9,9 +9,9 @@ class BarChartWidget extends StatelessWidget {
       child: BarChart(
         BarChartData(
           barGroups: [
-            BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 500, color: Colors.blue)]),
-            BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 600, color: Colors.blue)]),
-            BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 700, color: Colors.blue)]),
+            BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 500, color: const Color.fromARGB(255, 0, 0, 0))]),
+            BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 600, color: const Color.fromARGB(255, 0, 0, 0))]),
+            BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 700, color: const Color.fromARGB(255, 0, 0, 0))]),
           ],
         ),
       ),

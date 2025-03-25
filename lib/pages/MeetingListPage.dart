@@ -10,8 +10,13 @@ class MeetingListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Liste des réunions"),
-        backgroundColor: Colors.blueAccent,
+        title: Text(
+          "Modifier le Profil",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 64, 66, 69),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Consumer<MeetingProvider>(
         builder: (context, provider, child) {

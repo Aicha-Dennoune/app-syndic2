@@ -2,23 +2,27 @@ import 'package:flutter/material.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? imageUrl;
-  final String username;
-  final double textSize; // Nouvelle variable pour la taille du texte
+  final double size; // Variable for the size of the avatar
 
-  UserAvatar({this.imageUrl, this.username = "Syndic", this.textSize = 18}); // Par défaut à 18
+  UserAvatar({this.imageUrl, this.size = 57.0}); // Default size is 57.0
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
-          backgroundColor: imageUrl == null ? const Color.fromRGBO(68, 138, 255, 1) : Colors.blueAccent,
-          child: imageUrl == null ? Icon(Icons.person, color: const Color.fromARGB(255, 255, 255, 255)) : null,
-        ),
-        SizedBox(width: 8),
-        Text(username, style: TextStyle(color: Colors.white, fontSize: textSize)), // Utilisation du textSize
-      ],
+    return Container(
+      width: size, // Set the width of the container
+      height: size, // Set the height of the container
+      decoration: BoxDecoration(
+        image: imageUrl != null
+            ? DecorationImage(
+                image: NetworkImage(imageUrl!),
+                fit: BoxFit.cover, // To ensure the image covers the whole container
+              )
+            : null,
+        color: const Color.fromARGB(255, 64, 66, 69), // Set a background color if no image is provided
+      ),
+      child: imageUrl == null
+          ? Icon(Icons.person, color: Colors.white, size: size / 2) // Show an icon if no image is provided
+          : null,
     );
   }
 }

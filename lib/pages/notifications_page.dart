@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/user_avatar.dart'; // Import du UserAvatar
-import 'UserProfilePage.dart';
 class NotificationsPage extends StatefulWidget {
   @override
   _NotificationsPageState createState() => _NotificationsPageState();
@@ -41,15 +39,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Notifications", style: TextStyle(fontWeight: FontWeight.bold)),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UserProfilePage()),
-                );
-              },
-              child: UserAvatar(textSize: 18), // Utilisation de textSize de 18
-            ),
+      
           ],
         ),
       ),

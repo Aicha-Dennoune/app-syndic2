@@ -14,6 +14,7 @@ class EditMeetingPage extends StatefulWidget {
 class _EditMeetingPageState extends State<EditMeetingPage> {
   late TextEditingController agendaController;
   late TextEditingController locationController;
+  final _formKey = GlobalKey<FormState>(); // Clé pour le formulaire
 
   @override
   void initState() {
@@ -22,16 +23,127 @@ class _EditMeetingPageState extends State<EditMeetingPage> {
     final meeting = provider.meetings[widget.index];
 
     // Initialisation des champs
-    provider.setDate(DateTime.parse(meeting.date));
-
-    // Gestion du format de l'heure
-    List<String> timeParts = meeting.time.split(":");
-    int hour = int.parse(timeParts[0]);
-    int minute = int.parse(timeParts[1].split(" ")[0]);
-    provider.setTime(TimeOfDay(hour: hour, minute: minute));
-
     agendaController = TextEditingController(text: meeting.agenda);
     locationController = TextEditingController(text: meeting.location);
+
+    // Vous pouvez initialiser la date et l'heure ici si nécessaire
+  }
+
+  @override
+  void dispose() {
+    agendaController.dispose();
+    locationController.dispose();
+    super.dispose();
+  }
+
+  void _saveMeeting() {
+    if (_formKey.currentState!.validate()) {
+      final provider = Provider.of<MeetingProvider>(context, listen: false);
+      provider.updateMeeting(widget.index, context);
+      provider.clearFields(); // Réinitialiser les champs après modification
+      Navigator.pop(context); // Retour à la liste des réunions
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = Provider.of<MeetingProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Modifier la réunion",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 64, 66, 69),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey, // Associe la clé du formulaire
+          child: Column(
+            children: [
+              // Champ de texte pour l'agenda
+              TextFormField(
+                controller: agendaController,
+                decoration: InputDecoration(
+                  labelText: "Ordre du jour",
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer l\'ordre du jour';
+                  }
+                  return null;
+                },
+                onChanged: (value) => provider.setAgenda(value),
+              ),
+              const SizedBox(height: 10),
+
+              // Champ de texte pour la localisation
+              TextFormField(
+                controller: locationController,
+                decoration: InputDecoration(
+                  labelText: "Lieu",
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer le lieu';
+                  }
+                  return null;
+                },
+                onChanged: (value) => provider.setLocation(value),
+              ),
+              const SizedBox(height: 10),
+
+              // Sélecteur de date
+              ListTile(
+                title: const Text("Date de la réunion"),
+                subtitle: Text(provider.selectedDate != null
+                    ? "${provider.selectedDate!.year}-${provider.selectedDate!.month.toString().padLeft(2, '0')}-${provider.selectedDate!.day.toString().padLeft(2, '0')}"
+                    : "Sélectionner une date"),
+                trailing: const Icon(Icons.calendar_today),
+                onTap: () => _selectDate(context),
+              ),
+
+              // Sélecteur d'heure
+              ListTile(
+                title: const Text("Heure de la réunion"),
+                subtitle: Text(provider.selectedTime != null
+                    ? provider.selectedTime!.format(context)
+                    : "Sélectionner une heure"),
+                trailing: const Icon(Icons.access_time),
+                onTap: () => _selectTime(context),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Bouton pour enregistrer les modifications
+              ElevatedButton(
+                onPressed: _saveMeeting,
+                child: Text("Enregistrer"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 75, 160, 173),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   /// Ouvrir le sélecteur de date
@@ -64,70 +176,5 @@ class _EditMeetingPageState extends State<EditMeetingPage> {
     if (picked != null) {
       provider.setTime(picked);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<MeetingProvider>(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Modifier la réunion"),
-        backgroundColor: Colors.blueAccent,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // Sélecteur de date
-            ListTile(
-              title: const Text("Date de la réunion"),
-              subtitle: Text(provider.selectedDate != null
-                  ? "${provider.selectedDate!.year}-${provider.selectedDate!.month.toString().padLeft(2, '0')}-${provider.selectedDate!.day.toString().padLeft(2, '0')}"
-                  : "Sélectionner une date"),
-              trailing: const Icon(Icons.calendar_today),
-              onTap: () => _selectDate(context),
-            ),
-
-            // Sélecteur d'heure
-            ListTile(
-              title: const Text("Heure de la réunion"),
-              subtitle: Text(provider.selectedTime != null
-                  ? provider.selectedTime!.format(context)
-                  : "Sélectionner une heure"),
-              trailing: const Icon(Icons.access_time),
-              onTap: () => _selectTime(context),
-            ),
-
-            // Champ de texte pour l'agenda
-            TextField(
-              controller: agendaController,
-              decoration: const InputDecoration(labelText: "Ordre du jour"),
-              onChanged: provider.setAgenda,
-            ),
-            const SizedBox(height: 10),
-
-            // Champ de texte pour la localisation
-            TextField(
-              controller: locationController,
-              decoration: const InputDecoration(labelText: "Lieu"),
-              onChanged: provider.setLocation,
-            ),
-            const SizedBox(height: 20),
-
-            // Bouton pour enregistrer les modifications
-         ElevatedButton(
-  onPressed: () {
-    provider.updateMeeting(widget.index, context);
-    provider.clearFields(); // Réinitialiser les champs après modification
-    Navigator.pop(context); // Retour à la liste des réunions
-  },
-  child: const Text("Enregistrer"),
-),
-
-          ],
-        ),
-      ),
-    );
   }
 }
