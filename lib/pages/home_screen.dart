@@ -3,7 +3,7 @@ import '../widgets/custom_bottom_navbar.dart';
 import 'dashboard_page.dart';
 import 'schedule_meeting_page.dart';
 import 'messages_page.dart';
-import 'owners_page.dart'; // Import de la page des propriétaires
+import 'gestion_syndic.dart'; // Import de la page des propriétaires
 import 'settings_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     DashboardPage(),
     MessagesPage(),
     ScheduleMeetingPage(),
-    OwnersPage(), // Ajout ici à la bonne position
+    GestionSyndicScreen(), // Ajout ici à la bonne position
     SettingsPage(),
   ];
 

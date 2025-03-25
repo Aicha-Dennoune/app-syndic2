@@ -33,15 +33,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200], // Fond comme WhatsApp
        appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Notifications", style: TextStyle(fontWeight: FontWeight.bold)),
-      
-          ],
+        title: Text(
+          "Notifications",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 64, 66, 69),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [
@@ -84,7 +82,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Icon(Icons.check, color: Colors.green, size: 16),
+                                Icon(Icons.check, color: const Color.fromARGB(255, 75, 160, 173), size: 16),
                               ],
                             ),
                           ],
@@ -138,7 +136,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 ),
                 SizedBox(width: 8),
                 CircleAvatar(
-                  backgroundColor: Colors.green[700],
+                  backgroundColor: const Color.fromARGB(255, 75, 160, 173),
                   child: IconButton(
                     icon: Icon(Icons.send, color: Colors.white),
                     onPressed: () => sendNotification(_notificationController.text),
