@@ -19,8 +19,8 @@ class LoginPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.topCenter,
               child: Image.asset(
-                "assets/logoapp.jpg",
-                height: 100,
+                "assets/logo.jpeg",
+                height: 150, // Augmentation de la taille du logo
               ),
             ),
           ),
